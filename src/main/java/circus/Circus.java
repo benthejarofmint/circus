@@ -1,12 +1,19 @@
 package circus;
 
-import circus.animal.*;
+import circus.animal.Animal;
+import circus.animal.Duck;
+import circus.animal.Parrot;
+import circus.animal.Elephant;
+import circus.animal.Tiger;
 import circus.stuff.Equipment;
 import circus.stuff.Cannon;
 import circus.stuff.Ladder;
+import circus.stuff.Cage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+
 
 
 public class Circus {
@@ -42,15 +49,6 @@ public class Circus {
     }
 
     public static void main(String[] args) {
-        System.out.println("number of animals in circus: " + animals.length);
-
-        for (Animal a : animals) {
-            System.out.println(a);
-        }
-
-        // animals[3] = new Elephant("Strong one");
-
-        // System.out.println("number of animals in circus: " + animals.length);
 
         // we are taking an array representation and converting it to a array list
         ArrayList<Animal> animalArrayList = new ArrayList<>(Arrays.asList(animals));
@@ -79,13 +77,21 @@ public class Circus {
 
         System.out.println("after sorting");
         printAllAnimals(animalArrayList);
-        // finding the reference then using indexOf
-        // Animal candidate = findAnimal(animalArrayList, "Polly");
-        // System.out.println("Polly is at index: " + animalArrayList.indexOf(candidate));
 
-        // makeAnimalsTalk();
-        // System.out.println("Total value of animals " + calculateAssetValue(animals));
-        // System.out.println("Total value of equipments " + calculateAssetValue(equipments));
+        Cage<Duck> duckCage = new Cage<>();
+        Duck duck = new Duck("Louie");
+        duckCage.lockUp(duck);
+        Parrot parrot = new Parrot("Blue");
+        Cage<Parrot> parrotCage = new Cage<>();
+        parrotCage.lockUp(parrot);
+
+        ArrayList<Cage> cages = new ArrayList<>();
+        cages.add(duckCage);
+        cages.add(parrotCage);
+
+        for(Cage c: cages) {
+            c.release();
+        }
     }
 
     private static void printAllAnimals(ArrayList<Animal> animalArrayList) {
@@ -98,7 +104,7 @@ public class Circus {
         System.out.println("number of animals in circus (AL): " + animalArrayList.size());
     }
 
-    private static Animal findAnimal(ArrayList<Animal> animalArrayList, String name){
+    private static Animal findAnimal(ArrayList<Animal> animalArrayList, String name) {
         for (Animal a : animalArrayList) {
             if (a.name == name) {
                 return a;
